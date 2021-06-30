@@ -1,6 +1,4 @@
-#include <functional>
-#include "board.h"
-
+#pragma once
 
 class vehicle{
     const char vehiName;
@@ -13,9 +11,10 @@ public
         , startPos({x1, y1}) 
         , vehiSize(size) 
         , vehiOrient(orient) 
-            { }
+        { }
 
-    move(int newx, int newy)
+    void move(int newx, int newy);
+    virtual ~vehicle()
 };
 
 
