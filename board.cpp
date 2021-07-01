@@ -6,7 +6,7 @@
 // has 2 return values:
 //  0 -- worked correctly
 // -1 -- error -- printed to stderr 
-int addVehicle(char letter, int startx, int starty, int len, orientation orient){
+int addVehicle(char letter, int startX, int startY, int len, orientation orient){
 
     vehicle* newVehicle = vehicle();
     this.vehicles.append(newVehicle);
@@ -17,9 +17,9 @@ int addVehicle(char letter, int startx, int starty, int len, orientation orient)
 // error return codes:
 //  0 -- worked
 // -1 -- error, printed to stderr
-int board::moveVehicle(char letter, int newx, int newy){
+int board::moveVehicle(char letter, int newX, int newY){
     int carIndex = 256;
-    int retval = -1;
+    int retVal = -1;
     //first thing to check is if the car exists in the existingCars list
     for(int itr = 0; itr < numOfCars; itr++){
         if(existingCars[itr] == letter){
@@ -28,7 +28,7 @@ int board::moveVehicle(char letter, int newx, int newy){
     }
     if(carIndex == 256){ 
         std::cerr << "vehicle does not exist\n" << endl;
-        return retval;
+        return retVal;
     }
     // the car exists, and this is it's position
 
