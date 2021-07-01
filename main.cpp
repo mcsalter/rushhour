@@ -1,5 +1,5 @@
 /* rushhour program
- * lahral
+ * MCS
  * 28-6-2021
  */
 
