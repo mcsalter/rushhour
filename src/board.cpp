@@ -1,15 +1,18 @@
+//
+// Created by Lahral on 7/1/21.
+//
 #include <functional>
+#include <iostream>
 #include "board.h"
-
 
 // adds a vehicle to the board
 // has 2 return values:
 //  0 -- worked correctly
-// -1 -- error -- printed to stderr 
-int addVehicle(char letter, int startX, int startY, int len, orientation orient){
+// -1 -- error -- printed to stderr
+int board::addVehicle(char letter, int startX, int startY, int len, orientation orient){
 
-    vehicle* newVehicle = vehicle();
-    this.vehicles.append(newVehicle);
+    vehicle newVehicle = vehicle(letter, startX, startY, len, orient);
+    this->vehicles.append(newVehicle);
 }
 
 
@@ -26,11 +29,10 @@ int board::moveVehicle(char letter, int newX, int newY){
             carIndex = itr;
         }
     }
-    if(carIndex == 256){ 
+    if(carIndex == 256){
         std::cerr << "vehicle does not exist\n" << endl;
         return retVal;
     }
     // the car exists, and this is it's position
 
 }
-
