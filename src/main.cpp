@@ -1,7 +1,9 @@
-#include <iostream>
-#include "board.h"
+#include "main.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    board startBoard = board();
+
+    Astar Frontier(&startBoard);
+    Astar newStar(&Frontier, &startBoard);
     return 0;
 }

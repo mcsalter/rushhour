@@ -5,10 +5,12 @@
 #ifndef RUSHHOUR_CLION_BOARD_H
 #define RUSHHOUR_CLION_BOARD_H
 
+#include <iostream>
+#include <vector>
 #include "vehicle.h"
 
 class board {
-    std::vector<vehicle*> vehicles;
+    std::vector<vehicle> vehicles;
     int xCarIndex;
     char existingCars[32];
     int numOfCars;
@@ -21,7 +23,7 @@ public:
     { }
     int addVehicle(char letter, int startX, int startY, int len, orientation orient);
     int moveVehicle(char letter, int newX, int newY);
-    int runHeuristic(std::function<int> heuristic);
+    int updateVehicleSize(int newX, int newY);
     void printBoard();
     virtual ~board();
 };

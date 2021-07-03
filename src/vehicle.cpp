@@ -7,6 +7,16 @@
 void vehicle::move(int newx, int newy){
     // do not need to check the board positions as that will already have been done by
     // board::moveVehicle()
-    this->startPos[0]=newx;
+    this->startPos[0] = newx;
     this->startPos[1] = newy;
 }
+
+void vehicle::increaseSize(orientation orient) {
+    this->vehiSize ++;
+    this->vehiOrient = orient;
+}
+
+vehicle::~vehicle() {
+
+}
+
