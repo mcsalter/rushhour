@@ -12,7 +12,7 @@
 class board {
     std::vector<vehicle> vehicles;
     int xCarIndex;
-    char existingCars[32];
+    char existingCars[32] = {'0'};
     int numOfCars;
     const int boardSize;
 public:
@@ -21,10 +21,11 @@ public:
             , numOfCars(0)
             , xCarIndex(256) // a dummy that indicates not set to correct value
     { }
-    int addVehicle(char letter, int startX, int startY, int len, orientation orient);
+    int addVehicle(char letter, int startX, int startY);
     int moveVehicle(char letter, int newX, int newY);
-    int updateVehicleSize(int newX, int newY);
+    int updateVehicleSize(char letter, int newx, int newy);
     void printBoard();
+    int** findXCar();
     virtual ~board();
 };
 

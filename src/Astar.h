@@ -9,6 +9,7 @@
 #include "board.h"
 
 class Astar {
+/*
     board baseBoard;
     const int g,h,f;
     board boardHist[];
@@ -35,6 +36,7 @@ public:
         , boardHist{childBoard,parent->boardHist}
         {}
     virtual ~Astar();
+*/
 };
 
 

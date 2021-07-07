@@ -7,14 +7,13 @@
 // has 2 return values:
 //  0 -- worked correctly
 // -1 -- error -- printed to stderr
-int board::addVehicle(char letter, int startX, int startY, int len, orientation orient){
+int board::addVehicle(char letter, int startX, int startY){
     // making an offset because the piece can either be horizontal or vertical,
     // and I do not need to check both possible offsets, only one.
-    int offset[2] = {startY+len, startX+len};
-    int testLst[3] = {startX, startY, offset[orient]};
+    int testLst[2] = {startX, startY};
     int check = 1;
-    for(int itr = 0; itr < 3; itr++){
-        if(testLst[itr] > this->boardSize){check = 0;}
+    for(int itr : testLst){
+        if(itr > boardSize){check = 0;}
     }
     if(check == 0){
         //error detected, out of boundary
@@ -24,10 +23,10 @@ int board::addVehicle(char letter, int startX, int startY, int len, orientation 
     else{
         // code to run once the verification that it is within the boardspace
         //vehicle newVehicle = vehicle(letter, startX, startY, len, orient);
-        this->vehicles.emplace_back(letter, startX, startY, len);
-        this->numOfCars++;
-        this->existingCars[numOfCars] = letter;
-        if(letter == 'x') {this->xCarIndex = this->numOfCars;}
+        vehicles.emplace_back(letter, startX, startY);
+        existingCars[numOfCars] = letter;
+        numOfCars++;
+        if(letter == 'x') {xCarIndex = numOfCars;}
         return 0;
     }
 }
@@ -50,14 +49,14 @@ int board::moveVehicle(char letter, int newX, int newY) {
         std::cerr << "vehicle does not exist\n" << std::endl;
         return retVal;
     } else {
-        vehicle* tempVehicle = &this->vehicles[carIndex];
+        vehicle tempVehicle = vehicles[carIndex];
         //int offset[2] = {startY+len, startX+len};
-        int* piece = tempVehicle->getPositions();
-        int directionOffset = tempVehicle->getOrientation();
+        int** piece = tempVehicle.getPositions();
+        bool directionOffset = (bool) tempVehicle.getOrientation();
         //int testLst[3] = {startX, startY, offset[orient]};
         int check = 1;
-        for(int itr = 0; itr < 3; itr++){
-            if(piece[itr][directionOffset] > this->boardSize){check = 0;}
+        for(int itr = 0; itr < (sizeof(piece)/sizeof(piece[0])); itr++){
+            if(piece[itr][directionOffset] > boardSize){check = 0;}
         }
         if(check == 0){
             //error detected, out of boundary
@@ -66,18 +65,48 @@ int board::moveVehicle(char letter, int newX, int newY) {
         }
 
         // the car exists, the offset is safe, and this is it's position
-        this->vehicles[carIndex].move(newX, newY);
+        vehicles[carIndex].move(newX, newY);
     }
+    return 0;
 }
 
-int updateVehicleSize(int newX, int newY){
-
+// takes in the name of the vehicle, checks that it exists, then increases the vehicle size
+int board::updateVehicleSize(char letter, int newx, int newy){
+    //checking to make sure it exists:
+    auto vehicleIndex = std::find(std::begin(existingCars), std::end(existingCars), letter);
+    if(vehicleIndex == std::end(existingCars)){
+        std::cerr << "car does not exist" << std::endl;
+        return -1;
+    }
+    int offset = std::distance(existingCars,vehicleIndex);
+    // calculating the orientation
+    int** positions = vehicles[offset].getPositions();
+    int origin[2] = {positions[0][0], positions[0][1]};
+    orientation orient;
+    if(origin[0] == newx){
+        // the x axis has not changed in value, means that it is a vertical block
+        orient = vertical;
+    }else if(origin[1] == newy){
+        // the y axis has not changed in value, means that it is a horizontal block
+        orient = horizontal;
+    }else{
+        //the new coordinates make no sense
+        std::cerr << "the given coordinates make no sense" << std::endl;
+        return -1;
+    }
+    vehicles[offset].increaseSize(orient);
+    return 0;
 }
 
 void board::printBoard() {
 
 }
 
+int **board::findXCar() {
+    return nullptr;
+}
+
 board::~board() {
 
 }
+
