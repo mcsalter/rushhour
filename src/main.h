@@ -14,6 +14,6 @@
 int main();
 
 
-
+board readBoard(std::string* board, int rowIndex); // takes in a
 
 #endif //RUSHHOUR_MAIN_H

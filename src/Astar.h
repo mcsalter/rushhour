@@ -8,36 +8,40 @@
 #include <vector>
 #include "board.h"
 
+
 class Astar {
-/*
+
     board baseBoard;
     const int g,h,f;
-    board boardHist[];
+    std::vector<board> boardHist;
 
 public:
-    std::vector<board> generateNewBoards(board board);
-    std::vector<board> generateSlidesUp(board board);
-    std::vector<board> generateSlidesDown(board board);
-    std::vector<board> generateSlidesLeft(board board);
-    std::vector<board> generateSlidesRight(board board);
-    int generateheuristic(board board);
-    Astar(board* startBoard)
-        : baseBoard(*startBoard)
-        , g(generateheuristic(*startBoard))
-        , h(0)
-        , f(g+h)
-        , boardHist{startBoard}
-        {}
-    Astar(Astar* parent, board* childBoard)
-        : baseBoard()
-        , g(generateheuristic(*childBoard))
-        , h(parent->h + 1)
-        , f(g+h)
-        , boardHist{childBoard,parent->boardHist}
-        {}
+    Astar(board startBoard)
+            : baseBoard(startBoard)
+            , g(generateHeuristic(startBoard))
+            , h(0)
+            , f(g+h)
+    {boardHist.emplace_back(startBoard);}
+    Astar(Astar* parent, board childBoard)
+            : baseBoard()
+            , g(generateHeuristic(childBoard))
+            , h(parent->h + 1)
+            , f(g+h)
+            , boardHist(std::begin(parent->boardHist), std::end(parent->boardHist))
+    {boardHist.emplace_back(childBoard);}
+
+    std::vector<board> generateNewBoards(board startboard);
+    std::vector<board> generateSlidesUp(board startboard);
+    std::vector<board> generateSlidesDown(board startboard);
+    std::vector<board> generateSlidesLeft(board startboard);
+    std::vector<board> generateSlidesRight(board startboard);
+
+    int generateHeuristic(board startboard);
+
     virtual ~Astar();
-*/
+
 };
+
 
 
 #endif //RUSHHOUR_ASTAR_H

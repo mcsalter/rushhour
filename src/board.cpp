@@ -25,8 +25,8 @@ int board::addVehicle(char letter, int startX, int startY){
         //vehicle newVehicle = vehicle(letter, startX, startY, len, orient);
         vehicles.emplace_back(letter, startX, startY);
         existingCars[numOfCars] = letter;
-        numOfCars++;
         if(letter == 'x') {xCarIndex = numOfCars;}
+        numOfCars++;
         return 0;
     }
 }
@@ -98,15 +98,38 @@ int board::updateVehicleSize(char letter, int newx, int newy){
     return 0;
 }
 
+std::vector<char> board::getVehicles() {
+    std::vector<char> vehiList;
+    vehiList.reserve(numOfCars);
+    for(int itr = 0; itr < numOfCars; itr++){
+        // checking the vehicle names and updating existingCars if needed
+        vehiList.emplace_back(vehicles[itr].getName());
+        existingCars[itr] = vehicles[itr].getName();
+    }
+    return vehiList;
+}
+
 void board::printBoard() {
 
 }
 
 int **board::findXCar() {
-    return nullptr;
+    return vehicles[xCarIndex].getPositions();
+}
+
+int** board::getPositions(char vehicleLetter) {
+    for (vehicle car : vehicles){
+        if(car.getName() == vehicleLetter){return car.getPositions();}
+    }
+    abort();
+}
+
+int board::numCars() {
+    return numOfCars;
 }
 
 board::~board() {
 
 }
+
 

@@ -32,6 +32,10 @@ orientation vehicle::getOrientation() {
     return vehiOrient;
 }
 
+char vehicle::getName() {
+    return vehiName;
+}
+
 vehicle::~vehicle() {
 
 }

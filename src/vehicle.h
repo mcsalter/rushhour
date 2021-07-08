@@ -11,7 +11,7 @@
 enum orientation {horizontal, vertical};
 class vehicle {
 
-    const char vehiName;
+    char vehiName;
     int startPos[2];
     int vehiSize;
     orientation vehiOrient;
@@ -27,6 +27,7 @@ public:
     void increaseSize(orientation orient);
     int** getPositions(); // should return a value containing the positions -- eg: [[0,0],[0,1],[0,2]]
     orientation getOrientation();
+    char getName();
     virtual ~vehicle();
 };
 
